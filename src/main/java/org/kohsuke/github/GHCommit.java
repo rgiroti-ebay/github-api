@@ -225,7 +225,9 @@ public class GHCommit {
                 .with("path",path)
                 .with("line",line)
                 .with("position",position)
-                .to(String.format("/repos/%s/%s/commits/%s/comments",owner.getOwnerName(),owner.getName(),sha),GHCommitComment.class);
+                // .to(String.format("/repos/%s/%s/commits/%s/comments",owner.getOwnerName(),owner.getName(),sha),GHCommitComment.class);
+                // RGIROTI
+                .to(String.format("repos/%s/%s/commits/%s/comments",owner.getOwnerName(),owner.getName(),sha),GHCommitComment.class);
         return r.wrap(owner);
     }
 

@@ -1,12 +1,8 @@
 package org.kohsuke;
 
-import org.kohsuke.github.GHEventPayload;
-import org.kohsuke.github.GitHub;
-import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.jetty.JettyRunner;
 
-import java.io.IOException;
-import java.io.StringReader;
+// import org.kohsuke.stapler.StaplerRequest;
 
 /**
  * App to test the hook script. You need some internet-facing server that can forward the request to you
@@ -23,10 +19,10 @@ public class HookApp {
         jr.start();
     }
 
-    public void doIndex(StaplerRequest req) throws IOException {
+    /*public void doIndex(StaplerRequest req) throws IOException {
         String str = req.getParameter("payload");
         System.out.println(str);
         GHEventPayload.PullRequest o = GitHub.connect().parseEventPayload(new StringReader(str),GHEventPayload.PullRequest.class);
         System.out.println(o);
-    }
+    }*/
 }

@@ -153,10 +153,17 @@ public class GitHub {
     		tailApiUrl = tailApiUrl +  (tailApiUrl.indexOf('?')>=0 ?'&':'?') + "access_token=" + oauthAccessToken;
     	}
 
+        // System.out.println("githubServer = " + githubServer);
+        // System.out.println("TailApiUrl = " + tailApiUrl);
+        /*
+        RGIROTI - Uncommenting out the next block
         if (tailApiUrl.startsWith("/"))
             return new URL("https://api."+githubServer+tailApiUrl);
-        else
-            return new URL(tailApiUrl);
+        else  { */
+            return new URL(githubServer + tailApiUrl);
+            // RGIROTI
+            // return new URL(githubServer + "/" + tailApiUrl);
+        // }
     }
 
     /*package*/ Requester retrieve() {
@@ -177,7 +184,7 @@ public class GitHub {
 	public GHMyself getMyself() throws IOException {
 		requireCredential();
 
-        GHMyself u = retrieve().to("/user", GHMyself.class);
+        GHMyself u = retrieve().to("user", GHMyself.class);
 
         u.root = this;
         users.put(u.getLogin(), u);
@@ -280,7 +287,9 @@ public class GitHub {
         Requester requester = new Requester(this)
                 .with("name", name).with("description", description).with("homepage", homepage)
                 .with("public", isPublic ? 1 : 0);
-        return requester.method("POST").to("/user/repos", GHRepository.class).wrap(this);
+        // return requester.method("POST").to("/user/repos", GHRepository.class).wrap(this);
+        // RGIROTI
+        return requester.method("POST").to("user/repos", GHRepository.class).wrap(this);
     }
 
     /**

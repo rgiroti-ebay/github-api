@@ -422,7 +422,9 @@ public class GHRepository {
     public PagedIterable<GHCommit> listCommits() {
         return new PagedIterable<GHCommit>() {
             public PagedIterator<GHCommit> iterator() {
-                return new PagedIterator<GHCommit>(root.retrieve().asIterator(String.format("/repos/%s/%s/commits", owner.login, name), GHCommit[].class)) {
+                // return new PagedIterator<GHCommit>(root.retrieve().asIterator(String.format("/repos/%s/%s/commits", owner.login, name), GHCommit[].class)) {
+                // RGIROTI
+                return new PagedIterator<GHCommit>(root.retrieve().asIterator(String.format("repos/%s/%s/commits", owner.login, name), GHCommit[].class)) {
                     protected void wrapUp(GHCommit[] page) {
                         for (GHCommit c : page)
                             c.wrapUp(GHRepository.this);
@@ -455,7 +457,9 @@ public class GHRepository {
     public PagedIterable<GHCommitStatus> listCommitStatuses(final String sha1) throws IOException {
         return new PagedIterable<GHCommitStatus>() {
             public PagedIterator<GHCommitStatus> iterator() {
-                return new PagedIterator<GHCommitStatus>(root.retrieve().asIterator(String.format("/repos/%s/%s/statuses/%s", owner.login, name, sha1), GHCommitStatus[].class)) {
+                // return new PagedIterator<GHCommitStatus>(root.retrieve().asIterator(String.format("/repos/%s/%s/statuses/%s", owner.login, name, sha1), GHCommitStatus[].class)) {
+                // RGIROTI
+                return new PagedIterator<GHCommitStatus>(root.retrieve().asIterator(String.format("repos/%s/%s/statuses/%s", owner.login, name, sha1), GHCommitStatus[].class)) {
                     @Override
                     protected void wrapUp(GHCommitStatus[] page) {
                         for (GHCommitStatus c : page)
@@ -689,6 +693,8 @@ public class GHRepository {
     }
 
     String getApiTailUrl(String tail) {
-        return "/repos/" + owner.login + "/" + name +'/'+tail;
+        // return "/repos/" + owner.login + "/" + name +'/'+tail;
+        // RGIROTI
+        return "repos/" + owner.login + "/" + name +'/'+tail;
     }
 }
