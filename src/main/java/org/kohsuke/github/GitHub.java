@@ -69,7 +69,8 @@ public class GitHub {
 	private final String githubServer;
 
 	private GitHub(String login, String apiToken, String password) {
-		this ("github.com", login, apiToken, password);
+		// this ("github.com", login, apiToken, password);
+		this ("github.scm.corp.ebay.com/api/v3", login, apiToken, password);
 	}
 
     /**
@@ -153,14 +154,20 @@ public class GitHub {
     		tailApiUrl = tailApiUrl +  (tailApiUrl.indexOf('?')>=0 ?'&':'?') + "access_token=" + oauthAccessToken;
     	}
 
-        // System.out.println("githubServer = " + githubServer);
-        // System.out.println("TailApiUrl = " + tailApiUrl);
+        System.out.println("githubServer = " + githubServer);
+        System.out.println("TailApiUrl = " + tailApiUrl);
         /*
         RGIROTI - Uncommenting out the next block
         if (tailApiUrl.startsWith("/"))
             return new URL("https://api."+githubServer+tailApiUrl);
         else  { */
-            return new URL(githubServer + tailApiUrl);
+            String url = null;
+            if (!githubServer.startsWith("https://"))
+                url = "https://" + githubServer;
+            else url = githubServer;
+
+            return new URL(url + tailApiUrl);
+            // return new URL(githubServer + tailApiUrl);
             // RGIROTI
             // return new URL(githubServer + "/" + tailApiUrl);
         // }
@@ -198,7 +205,9 @@ public class GitHub {
 	public GHUser getUser(String login) throws IOException {
 		GHUser u = users.get(login);
 		if (u == null) {
-            u = retrieve().to("/users/" + login, GHUser.class);
+            // u = retrieve().to("/users/" + login, GHUser.class);
+            // TODO: RGIROTI Made change here
+            u = retrieve().to("users/" + login, GHUser.class);
             u.root = this;
             users.put(u.getLogin(), u);
 		}
