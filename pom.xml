@@ -30,7 +30,14 @@
          <name>snapshot</name>
          <url>http://r2d2:7077/nexus/content/repositories/github.java/</url>
      </snapshotRepository>
-  </distributionManagement>
+ </distributionManagement>
+
+ <repositories>
+     <repository>
+         <id>jenkins.releases</id>
+         <url>http://repo.jenkins-ci.org/public/</url>
+     </repository>
+ </repositories>
 
   <build>
     <plugins>
