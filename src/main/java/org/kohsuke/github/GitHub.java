@@ -230,7 +230,9 @@ public class GitHub {
     public GHOrganization getOrganization(String name) throws IOException {
         GHOrganization o = orgs.get(name);
         if (o==null) {
-            o = retrieve().to("/orgs/" + name, GHOrganization.class).wrapUp(this);
+            // o = retrieve().to("/orgs/" + name, GHOrganization.class).wrapUp(this);
+            // TODO: RGIROTI Made change here
+            o = retrieve().to("orgs/" + name, GHOrganization.class).wrapUp(this);
             orgs.put(name,o);
         }
         return o;

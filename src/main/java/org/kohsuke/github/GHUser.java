@@ -82,7 +82,9 @@ public class GHUser extends GHPerson {
     public GHPersonSet<GHOrganization> getOrganizations() throws IOException {
         GHPersonSet<GHOrganization> orgs = new GHPersonSet<GHOrganization>();
         Set<String> names = new HashSet<String>();
-        for (GHOrganization o : root.retrieve().to("/users/" + login + "/orgs", GHOrganization[].class)) {
+        // TODO: RGIROTI Made change here
+        // for (GHOrganization o : root.retrieve().to("/users/" + login + "/orgs", GHOrganization[].class)) {
+        for (GHOrganization o : root.retrieve().to("users/" + login + "/orgs", GHOrganization[].class)) {
             if (names.add(o.getLogin()))    // I've seen some duplicates in the data
                 orgs.add(root.getOrganization(o.getLogin()));
         }

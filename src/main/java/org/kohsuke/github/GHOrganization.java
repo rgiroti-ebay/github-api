@@ -33,16 +33,22 @@ public class GHOrganization extends GHPerson {
 
     public GHRepository createRepository(String name, String description, String homepage, GHTeam team, boolean isPublic) throws IOException {
         // such API doesn't exist, so fall back to HTML scraping
+        /*return new Requester(root)
+                .with("name", name).with("description", description).with("homepage", homepage)
+                .with("public", isPublic).with("team_id",team.getId()).to("/orgs/"+login+"/repos", GHRepository.class).wrap(root);*/
+        // TODO: RGIROTI Leading slash again
         return new Requester(root)
                 .with("name", name).with("description", description).with("homepage", homepage)
-                .with("public", isPublic).with("team_id",team.getId()).to("/orgs/"+login+"/repos", GHRepository.class).wrap(root);
+                .with("public", isPublic).with("team_id",team.getId()).to("orgs/"+login+"/repos", GHRepository.class).wrap(root);
     }
 
     /**
      * Teams by their names.
      */
     public Map<String,GHTeam> getTeams() throws IOException {
-        GHTeam[] teams = root.retrieve().to("/orgs/" + login + "/teams", GHTeam[].class);
+        // GHTeam[] teams = root.retrieve().to("/orgs/" + login + "/teams", GHTeam[].class);
+        // TODO: RGIROTI Made change to exclude leading slash
+        GHTeam[] teams = root.retrieve().to("orgs/" + login + "/teams", GHTeam[].class);
         Map<String,GHTeam> r = new TreeMap<String, GHTeam>();
         for (GHTeam t : teams) {
             r.put(t.getName(),t.wrapUp(this));
