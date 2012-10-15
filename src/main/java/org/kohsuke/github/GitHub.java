@@ -154,8 +154,9 @@ public class GitHub {
     		tailApiUrl = tailApiUrl +  (tailApiUrl.indexOf('?')>=0 ?'&':'?') + "access_token=" + oauthAccessToken;
     	}
 
-        System.out.println("githubServer = " + githubServer);
-        System.out.println("TailApiUrl = " + tailApiUrl);
+    	// FIXME: cleanup. add debug logging
+        //System.out.println("githubServer = " + githubServer);
+        //System.out.println("TailApiUrl = " + tailApiUrl);
         
         // check if the github server ends with a "/" and the tail api url begins with a "/"
         // in this cases, it results in something like this
@@ -170,7 +171,7 @@ public class GitHub {
         	url = new URL(githubServer + tailApiUrl);
         }
         
-        System.out.println("GitHub URL : " + url );
+        //System.out.println("GitHub URL : " + url );
         return url;
     }
 
