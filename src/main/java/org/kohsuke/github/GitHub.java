@@ -156,21 +156,22 @@ public class GitHub {
 
         System.out.println("githubServer = " + githubServer);
         System.out.println("TailApiUrl = " + tailApiUrl);
-        /*
-        RGIROTI - Uncommenting out the next block
-        if (tailApiUrl.startsWith("/"))
-            return new URL("https://api."+githubServer+tailApiUrl);
-        else  { */
-            String url = null;
-            if (!githubServer.startsWith("https://"))
-                url = "https://" + githubServer;
-            else url = githubServer;
-
-            return new URL(url + tailApiUrl);
-            // return new URL(githubServer + tailApiUrl);
-            // RGIROTI
-            // return new URL(githubServer + "/" + tailApiUrl);
-        // }
+        
+        // check if the github server ends with a "/" and the tail api url begins with a "/"
+        // in this cases, it results in something like this
+        // https://github.scm.corp.ebay.com/api/v3//orgs/Binary?access_token=1cf7d9792235b8592eda18bd7dcc2de37f99b3bc
+        // remove the "//" in the middle of the URL.
+        // this happens in the enterprise github installations
+        URL url = null;
+        if( githubServer.endsWith("/")
+        		&& tailApiUrl.startsWith("/") ){
+        	url = new URL( githubServer.substring(0, (githubServer.length()-1)) + tailApiUrl );
+        }else{
+        	url = new URL(githubServer + tailApiUrl);
+        }
+        
+        System.out.println("GitHub URL : " + url );
+        return url;
     }
 
     /*package*/ Requester retrieve() {
