@@ -26,9 +26,9 @@
       </repository>-->
 
      <snapshotRepository>
-         <id>snapshots</id>
+         <id>r2d2.snapshots</id>
          <name>snapshot</name>
-         <url>http://r2d2:7077/nexus/content/repositories/github.java/</url>
+         <url>http://r2d2:7077/nexus/content/repositories/r2d2.snapshots/</url>
      </snapshotRepository>
  </distributionManagement>
 
